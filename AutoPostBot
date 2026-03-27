@@ -11,7 +11,7 @@ def log(msg):
 log("=" * 50)
 log("БОТ СТАРТУЕТ")
 
-# Диагностика файлов — оставь, пока не увидишь posts.txt в списке
+# Диагностика — что лежит в папке
 log("Текущая папка: " + os.getcwd())
 log("Список файлов: " + ", ".join(os.listdir('.')))
 
@@ -65,7 +65,12 @@ while True:
     
     if need:
         count += 1
-        post = POSTS[count % len(POSTS)][:40] + "..." if len(POSTS ) > 40 else POSTS log(f"Отправка #{count}: {post}")
+        # Исправленная строка
+        post = POSTS[count % len(POSTS)]
+        if len(post) > 40:
+            post = post[:40] + "..."
+        
+        log(f"Отправка #{count}: {post}")
         
         try:
             r = requests.post(
